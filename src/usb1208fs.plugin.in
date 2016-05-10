@@ -1,0 +1,7 @@
+[Plugin]
+Version = @VERSION@
+Module = usb1208fs
+Name = usb1208fs Plugin
+License = Private
+Description = Implementation of some plugin idea
+Copyright = Copyright © Stephen Roy

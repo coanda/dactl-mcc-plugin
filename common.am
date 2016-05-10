@@ -1,0 +1,8 @@
+shareddir = $(datadir)/dactl
+sysconfigdir = $(sysconfdir)
+plugindir = @PLUGIN_DIR@
+
+MAINTAINERCLEANFILES = Makefile.in
+
+vala-clean:
+	rm -f `find . -name "*.stamp"`
