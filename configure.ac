@@ -42,15 +42,15 @@ dnl Library checks
 VALAFLAGS="--enable-deprecated --target-glib=2.38 $VALAFLAGS"
 AC_SUBST(VALAFLAGS)
 
-PLUGIN_MODULES="cld-0.3 dactl-core-0.3 dactl-ui-0.3 gtk+-3.0 clutter-1.0"
-PLUGIN_MODULES_VALAFLAGS="--pkg cld-0.3 --pkg dactl-core-0.3 --pkg dactl-ui-0.3 --pkg gtk+-3.0 --pkg clutter-1.0"
+PLUGIN_MODULES="cld-0.3 dactl-core-0.3 dactl-ui-0.3 gtk+-3.0 clutter-1.0 libmccusb libusb-1.0"
+PLUGIN_MODULES_VALAFLAGS="--pkg cld-0.3 --pkg dactl-core-0.3 --pkg dactl-ui-0.3 --pkg gtk+-3.0 --pkg clutter-1.0 --pkg libmccusb --pkg libusb-1.0"
 
 PKG_CHECK_MODULES([PLUGIN_DEPS], [$PLUGIN_MODULES])
 AC_SUBST(PLUGIN_MODULES_VALAFLAGS)
 
 dnl Header checks
 AC_CHECK_HEADERS(stdlib.h)
-AC_CHECK_LIB(m, floor, PACKAGE_LIBS="$PACKAGE_LIBS -lm",)
+AC_CHECK_LIB(m, floor, PACKAGE_LIBS="$PACKAGE_LIBS -lm")
 
 dnl Build Options
 AC_ARG_ENABLE(debug,

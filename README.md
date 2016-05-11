@@ -1,32 +1,27 @@
-## Plugin README
+## Dactl Plugin for Measurement Computing USB01208FS
 
-README for plugin usb1208fs.
+This plugin is an interface between [Dactl](https://github.com/coanda/dactl/)
+and the [Measurement Computing USB-1208FS](http://www.mccdaq.com/).
 
-### Plugin XML Configuration
+### Installation
 
-```xml
-<plugins>
-  <plugin id="usb1208fs0" type="usb1208fs">
-    <ui:object id="usb1208fs-ctl0" type="plugin-control" parent="box0-0">
-      <ui:property name="ref" device="usb1208fs">/ser0</ui:property>
-    </ui:object>
-  </plugin>
-</plugins>
-```
+1. Install [Dactl](https://github.com/coanda/dactl/)
+2. Install MCCLIBUSB from ftp://lx10.tx.ncsu.edu/pub/Linux/drivers/USB/
+3. Install [mcc-vapi](https://github.com/coanda/mcc-vapi)
+4. Install this plugin using the commands: <br><br>
+   `git clone https://github.com/coanda/dactl-mcc-plugin` <br>
+   `cd dactl-mcc-plugin` <br>
+   `./autogen.sh` <br>
+   `make && sudo make install`
 
-### Plugin CLD XML Configuration
+### Configuration
 
-```xml
-<cld:objects>
-  <cld:object id="ser0" type="port" ptype="serial">
-    <cld:property name="device">/dev/ttyACM0</cld:property>
-    <cld:property name="baudrate">9600</cld:property>
-    <cld:property name="databits">8</cld:property>
-    <cld:property name="stopbits">1</cld:property>
-    <cld:property name="parity">None</cld:property>
-    <cld:property name="handshake">Hardware</cld:property>
-    <cld:property name="accessmode">Read and Write</cld:property>
-    <cld:property name="echo">false</cld:property>
-  </cld:object>
-</cld:objects>
+For a working configuration see this [example](https://github.com/coanda/dactl-mcc-config).
+
+### Usage
+
+After copying the example configuration it can be used by:
+
+  > ```bash
+dactl -f /path/to/file/configuration.xml
 ```
