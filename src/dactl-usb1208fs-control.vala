@@ -62,7 +62,7 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
     private Gtk.Adjustment adjustment_rate;
 
     [GtkChild]
-    private Gtk.Label lbl_input_value;
+    private Gtk.Entry entry_input_value;
 
     [GtkChild]
     private Gtk.Expander expander_settings;
@@ -84,6 +84,9 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
 
     [GtkChild]
     private Gtk.Button btn_blink;
+
+    [GtkChild]
+    private Gtk.Entry entry_counter;
 
     /**
      * {@inheritDoc}
@@ -112,6 +115,10 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
     private uint8 porta_direction;
 
     private uint8 portb_direction;
+
+    private uint32 counter_value = 0;
+
+    private uint32 counter_offset = 0;
 
     /**
      * {@inheritDoc}
@@ -419,6 +426,8 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
 
     private string serial_number;
 
+    private Cld.RawChannel counter_channel;
+
     construct {
         id = "usb1208fs-ctl0";
         ao_channels = new Cld.AOChannel[2];
@@ -429,6 +438,19 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
 
     public Control.from_xml_node (Xml.Node *node) {
         build_from_xml_node (node);
+/*
+ *
+ *        try {
+ *            var provider = new Gtk.CssProvider ();
+ *            var file = File.new_for_uri ("resource:///org/coanda/dactl/plugins/intelligent-pbw-3200/style.css");
+ *            provider.load_from_file (file);
+ *            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
+ *                                                      provider,
+ *                                                      600);
+ *        } catch (GLib.Error e) {
+ *            warning ("Error loading css style file: %s", e.message);
+ *        }
+ */
 
         /* Request the CLD data */
         request_data.begin ((obj, res) => {
@@ -535,6 +557,9 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
                         break;
                     case "CldDOChannel":
                         dio_channels += object as Cld.DChannel;
+                        break;
+                    case "CldRawChannel":
+                        counter_channel = object as Cld.RawChannel;
                         break;
                     default:
                         break;
@@ -829,6 +854,7 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
         update_analog ();
         update_digital (Mcc.Usb1208FS.DIO_PORTA);
         update_digital (Mcc.Usb1208FS.DIO_PORTB);
+        update_counter ();
     }
 
     private void update_analog () {
@@ -915,6 +941,12 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
         }
     }
 
+    private void update_counter () {
+        /* Read the counter */
+        counter_value = Mcc.Usb1208FS.read_counter (udev);
+        counter_channel.raw_value = counter_value;
+    }
+
     [GtkCallback]
     private void btn_acquire_toggled_cb () {
         debug ("acquire toggled");
@@ -977,6 +1009,8 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
      * Test mode sampling (no channel value updates)
      */
     private async void sample_test_mode () {
+        Mcc.Usb1208FS.init_counter (udev);
+
         while (btn_connect.get_active () &&
                !btn_acquire.get_active () &&
                is_connected ()) {
@@ -994,7 +1028,7 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
                 val = Mcc.Usb1208FS.volts_fs (gain, svalue);
             }
 
-            lbl_input_value.set_text ("%6.3f".printf(val));
+            entry_input_value.set_text ("%6.3f".printf(val));
 
             /* Update DIO Ports */
             uint8 bit = 0x01;
@@ -1067,6 +1101,10 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
                 }
             }
 
+            /* Read the counter */
+            counter_value = Mcc.Usb1208FS.read_counter (udev);
+            entry_counter.set_text ("%010u".printf (counter_value - counter_offset));
+
             yield nap (100);
         }
     }
@@ -1103,5 +1141,10 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
             debug ("PORTB%s", (button as Gtk.Button).get_label ());
             (button as Gtk.Button).set_sensitive (is_sensitive);
         }
+    }
+
+    [GtkCallback]
+    private void btn_reset_counter_clicked_cb () {
+        counter_offset = counter_value;
     }
 }

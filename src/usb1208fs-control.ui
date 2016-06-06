@@ -242,10 +242,13 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="lbl_input_value">
+                          <object class="GtkEntry" id="entry_input_value">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">0.000</property>
+                            <property name="editable">False</property>
+                            <style>
+                              <class name="readout"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -822,6 +825,61 @@
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkExpander" id="expander1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <child>
+                          <object class="GtkBox" id="box8">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="margin_left">10</property>
+                            <property name="spacing">5</property>
+                            <child>
+                              <object class="GtkButton" id="btn_reset_counter">
+                                <property name="label" translatable="yes">Reset</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <signal name="clicked" handler="btn_reset_counter_clicked_cb" swapped="no"/>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkEntry" id="entry_counter">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="editable">False</property>
+                                <style>
+                                  <class name="readout"/>
+                                </style>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                        <child type="label">
+                          <object class="GtkLabel" id="label2">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Counter</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>

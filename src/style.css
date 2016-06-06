@@ -1,0 +1,18 @@
+@define-color tango_scarlet_red1 #ef2929;
+@define-color tango_scarlet_red2 #cc0000;
+@define-color tango_scarlet_red3 #a40000;
+
+@define-color tango_aluminum1 #eeeeec;
+@define-color tango_aluminum2 #d3d7cf;
+@define-color tango_aluminum3 #babdb6;
+@define-color tango_aluminum4 #888a85;
+@define-color tango_aluminum5 #555753;
+@define-color tango_aluminum6 #2e3436;
+
+.readout {
+    border-width: 2px;
+    border-color: @tango_aluminum2;
+    border-style: solid;
+    background-color: @tango_aluminum3;
+    color: @tango_scarlet_red3;
+}

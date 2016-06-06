@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/coanda/dactl/plugins/usb1208fs">
+    <file>style.css</file>
     <file preprocess="xml-stripblanks">usb1208fs-control.ui</file>
   </gresource>
 </gresources>
