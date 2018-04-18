@@ -944,7 +944,7 @@ public class Dactl.usb1208fs.Control : Dactl.SimpleWidget, Dactl.PluginControl, 
     private void update_counter () {
         /* Read the counter */
         counter_value = Mcc.Usb1208FS.read_counter (udev);
-        counter_channel.value = (uint16)counter_value;
+        // counter_channel.value = (uint16)counter_value;
     }
 
     [GtkCallback]

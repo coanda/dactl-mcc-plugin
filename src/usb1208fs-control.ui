@@ -831,6 +831,7 @@
                       <object class="GtkExpander" id="expander1">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="sensitive">False</property>
                         <child>
                           <object class="GtkBox" id="box8">
                             <property name="visible">True</property>
