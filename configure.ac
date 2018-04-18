@@ -42,8 +42,8 @@ dnl Library checks
 VALAFLAGS="--enable-deprecated --target-glib=2.38 $VALAFLAGS"
 AC_SUBST(VALAFLAGS)
 
-PLUGIN_MODULES="cld-0.3 dactl-core-0.3 dactl-ui-0.3 gtk+-3.0 clutter-1.0 libmccusb libusb-1.0"
-PLUGIN_MODULES_VALAFLAGS="--pkg cld-0.3 --pkg dactl-core-0.3 --pkg dactl-ui-0.3 --pkg gtk+-3.0 --pkg clutter-1.0 --pkg libmccusb --pkg libusb-1.0"
+PLUGIN_MODULES="cld-1.0 libdactl-1.0 gtk+-3.0 clutter-1.0 libmccusb libusb-1.0 gee-0.8 libxml-2.0 webkit2gtk-4.0 libpeas-1.0"
+PLUGIN_MODULES_VALAFLAGS="--pkg cld-1.0 --pkg dactl-1.0 --pkg gtk+-3.0 --pkg clutter-1.0 --pkg libmccusb --pkg libusb-1.0 --pkg gee-0.8 --pkg libxml-2.0 --pkg comedi --pkg webkit2gtk-4.0 --pkg libpeas-1.0"
 
 PKG_CHECK_MODULES([PLUGIN_DEPS], [$PLUGIN_MODULES])
 AC_SUBST(PLUGIN_MODULES_VALAFLAGS)
@@ -75,7 +75,7 @@ AM_GLIB_GNU_GETTEXT
 IT_PROG_INTLTOOL([0.40.0])
 
 AC_SUBST([PLUGIN_LINKER_FLAGS],["-module -avoid-version -Wl,-z,defs"])
-AC_SUBST([PLUGIN_DIR],[${libdir}/dactl-0.3/plugins])
+AC_SUBST([PLUGIN_DIR],[${libdir}/dactl/plugins])
 
 dnl Configuration
 AC_SUBST([pkgconfigdir])
