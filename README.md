@@ -4,12 +4,28 @@ This plugin is an interface between [Dactl](https://github.com/coanda/dactl/)
 and the [Measurement Computing USB-1208FS](http://www.mccdaq.com/).
 
 1. [Installation](#installation)
-  1. [Dependencies](#dependencies)
-  1. [libcld](#libcld)
-  1. [dactl](#dactl)
-  1. [MCC-USB](#mcc-usb)
-  1. [HIDAPI](#hidapi)
-  1. [Plugin](#plugin)
+   1. [Dependencies](#dependencies)
+   1. [libcld](#libcld)
+   1. [dactl](#dactl)
+   1. [MCC-USB](#mcc-usb)
+   1. [HIDAPI](#hidapi)
+   1. [Plugin](#plugin)
+1. [Configuration](#configuration)
+   1. [Setup](#setup)
+   1. [Dactl](#dactl)
+   1. [Sampling Rate](#sampling-rate)
+   1. [Usage](#usage)
+   1. [User Interface](#user-interface)
+   1. [Acquisition](#acquisition)
+1. [Preferences](#preferences)
+   1. [Channel](#channel)
+      1. [Tag](#tag)
+      1. [Description](#description)
+   1. [Calibration](#calibration)
+      1. [Units](#units)
+      1. [Linear Term](#linear-term)
+      1. [Constant Term](#constant-term)
+   1. [Save Changes](#save-changes)
 
 ## Installation
 
@@ -173,7 +189,7 @@ The configuration file defines the following:
 Details on editing configuration files will not be described here since many changes can be made through the Dactl user interface "Preferences"
 More information on creating configuration files is at [https://dactl.readthedocs.io/en/latest/index.html](https://dactl.readthedocs.io/en/latest/index.html)
 
-### Changing the Sampling Rate
+### Sampling Rate
 
 Edit the following line int the configuration file in the plugin section to change the rate.
 
@@ -201,13 +217,13 @@ Once Dactl has launched with the default configuration the screen should look li
 
 ![dactl](assets/dactl.png)
 
-### Start Aquiring Data
+### Aquisition
 
 * ensure that the S/N of the USB-1208
 * click the "Connect" button
 * click the "Acquire" button
 
-### Change the Graph Settings
+### Graph Settings
 
 Double click on the graph you want to change. The screen should look like this.
 
@@ -216,38 +232,39 @@ Double click on the graph you want to change. The screen should look like this.
 ## Preferences
 
 Changes to some settings can be made while Dactl is running. Others will not take effect until the changes are saved and the program is restarted.
-
-### Edit Preferences
-
 Select "Preferences" from the dactl drop down menu
 
 ![preferences-drop-down](assets/preferences-drop-down.png)
 
-#### Change a Channel Tag Name
+### Channel
+
+#### Tag
 
 Navigate to the channel settings through starting from the "Log" tab to edit the value.
 
 ![tag-name](assets/tag-name.png)
 
-#### Change a Channel Description
+#### Description
 
 Similarily...
 
 ![chan-desc](assets/chan-desc.png)
 
-#### Edit the Scaled Units for a Channel Calibrations
+### Calibration
+
+#### Units
 
 ![units](assets/units.png)
 
-#### Edit the Linear Term of a Calibrations
+#### Linear Term
 
 ![linear](assets/linear.png)
 
-#### Edit the Constant Term of a Calibrations
+#### Constant Term
 
 ![constant](assets/constant.png)
 
-### Saving the Changes
+### Save Changes
 
 Changes made to the user preferences can be saved by overwriting the configuration file so a copy should of it should be made before hand if it is neccessary to revert to the original.
 
