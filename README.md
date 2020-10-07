@@ -43,6 +43,55 @@ dactl-0.4.3-1.fc27.x86_64.rpm
 ![file-browser](assets/select-rpm.png)
 -->
 
+### Debian 10
+
+```
+# Comedi
+cd ~/src
+git clone https://github.com/geoffjay/comedi-vapi.git
+sudo mkdir -p /usr/local/lib/pkgconfig
+sudo cp comedi-vapi/comedi.pc /usr/local/lib/pkgconfig/
+ver=`vala --version | sed -e 's/.*\([0-9]\.[0-9][0-9]\).*/\1/'`
+sudo cp comedi-vapi/comedi.vapi /usr/share/vala-$ver/vapi/
+PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/
+
+# HIDAPI
+cd ~/src
+git clone git://github.com/signal11/hidapi.git
+cd hidapi
+./bootstrap
+./configure
+make && sudo make install
+
+#MCC-USB
+cd ~/src
+git clone https://github.com/wjasper/Linux_Drivers.git
+sudo cp Linux_Drivers/61-mcc.rules /etc/udev/rules.d/
+sudo udevadm control --reload
+sudo udevadm trigger
+cd ~/src/Linux_Drivers/USB/mcc-libusb
+make
+sudo make install
+sudo ldconfig
+
+#Vala Build Dependencies
+cd ~/src
+git clone https://github.com/coanda/mcc-vapi.git
+cd mcc-vapi
+sudo cp libmccusb.{deps,vapi} /usr/share/vala/vapi/
+sudo cp libmccusb.pc /usr/share/pkgconfig/
+
+# install the dactl plugin
+cd ~/src/dactl-plugins # or whatever
+sudo apt install gnome-common
+sudo apt install libclutter-1.0-dev
+sudo apt install libcomedi-dev-dev
+sudo cp vapi/hidapi.vapi /usr/share/vala/vapi/
+./autogen.sh --prefix=/usr --libdir=/usr/lib64
+make && sudo make install
+```
+
+
 ### Dependencies
 
 Run the following commands from a terminal window
